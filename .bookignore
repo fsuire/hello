@@ -1,0 +1,12 @@
+docker-compose*
+Dockerfile*
+.gitkeep
+.gitignore
+env_file
+env_file*
+*.crt
+*.csr
+*.key
+*.html
+*.js
+*/*.json
