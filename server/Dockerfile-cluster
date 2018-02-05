@@ -4,7 +4,6 @@ ARG NODE_ENV
 
 ENV NODE_ENV ${NODE_ENV}
 ENV HTTP_PORT 3000
-ENV HTTPS_PORT 3001
 
 COPY package.json /application/
 COPY package-lock.json /application/

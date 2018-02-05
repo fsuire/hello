@@ -11,9 +11,7 @@ There are several ways to develop:
 1. Use docker-compose and the `./docker-compose.yml` file to launch several interdependent containers. Every change change made to a docker-compose file should be committed.
 
 ### prerequisites
-1. Make sure you have [docker](https://docs.docker.com/engine/installation/) installed
-1. Make sure you have a valid self-signed SSL certificate for the "development" environment (have a look to the appendices of the fsuire/hello documentation)
-1. Make sure you have a `env_file_development` file (at the root of this server app, create a `env_file_development` file by duplicating the `env_file.template` file. Then edit your `env_file_development` file and fill its variables with the correct values. An `env_file` should never be comitted).
+Have [docker](https://docs.docker.com/engine/installation/) installed.
 
 ### Developing with the `Dockerfile-development`
 
@@ -24,7 +22,7 @@ docker build -t fsuire/hello:dev --file server/Dockerfile-development server/.
 
 Make a running container (named `hello_dev`):
 ```bash
-docker run -d -it -p 3000:3000 -p 3001:3001 -v $PWD/server:/application --env-file=server/env_file_development --name hello_dev fsuire/hello:dev bash
+docker run -d -it -p 3000:3000 -p 3001:3001 -v $PWD/server:/application --name hello_dev fsuire/hello:dev bash
 ```
 
 Enter your running container:
@@ -47,15 +45,12 @@ npm start
         build:
             context: ./server
             dockerfile: Dockerfile-development
-        env_file: ./server/env_file_development
         volumes:
             - ./server:/application:rw
         environment:
             - HTTP_PORT=3000
-            - HTTPS_PORT=3001
         ports:
             - "3000:3000"
-            - "3001:3001"
         command: >
             sh -c '
               npm i && npm start
@@ -81,7 +76,7 @@ Build an image (do not forget to provide the desired environment with the `--bui
 docker build -t fsuire/hello:latest --file server/Dockerfile-cluster --build-arg NODE_ENV=production server/.
 ```
 
-To quickly test the newly created image, you can make it running in a container. In that purpose, ake sure you have a `env_file_production` file (at the root of this server app, create a `env_file_production` file by duplicating the `env_file.template` file. Then edit your `env_file_production` file and fill its variables with the correct values. An `env_file` should never be comitted.
+To quickly test the newly created image, you can make it run in a container.
 ```bash
-docker run -d -it -p 80:3000 -p 443:3001 --env-file=server/env_file_production --name hello fsuire/hello:latest
+docker run -d -it -p 80:3000 -p 443:3001 --name hello fsuire/hello:latest
 ```
