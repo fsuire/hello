@@ -1,9 +1,10 @@
 FROM node:latest
 
 ENV NODE_ENV development
-ENV HTTP_PORT 3000
 
 RUN npm install -g gitbook-cli
 
 RUN mkdir /application
 WORKDIR /application
+
+ENV PATH /application/node_modules/.bin:$PATH
