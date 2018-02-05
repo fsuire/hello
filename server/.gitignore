@@ -1,4 +1,1 @@
 node_modules
-keys/*.crt
-keys/*.csr
-keys/*.key

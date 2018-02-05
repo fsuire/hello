@@ -4,15 +4,12 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile-development
-    env_file: ./server/env_file_development
     volumes:
       - ./server:/application:rw
     environment:
       - HTTP_PORT=3000
-      - HTTPS_PORT=3001
     ports:
       - "3000:3000"
-      - "3001:3001"
     command: >
       sh -c '
         npm i && npm start
