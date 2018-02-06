@@ -7,6 +7,7 @@
 * [Server - The backend app](server/README.md)
 * [Client - The frontend app](client/README.md)
     * [Create react app](client/create_react_app.md)
+* [Documentation](doc/documentation/README.md)
 
 ## Appendices
 

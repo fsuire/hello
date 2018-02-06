@@ -17,12 +17,12 @@ Have [docker](https://docs.docker.com/engine/installation/) installed.
 
 Build the image (where `fsuire/hello:dev` is the name - and the tag - of the image):
 ```bash
-docker build -t fsuire/hello:dev --file server/Dockerfile-development server/.
+docker build -t fsuire/hello:dev --file ./Dockerfile-nodejs-development server/.
 ```
 
 Make a running container (named `hello_dev`):
 ```bash
-docker run -d -it -p 3000:3000 -p 3001:3001 -v $PWD/server:/application --name hello_dev fsuire/hello:dev bash
+docker run -d -it -p 3001:3000 -v $PWD/server:/application --name hello_dev fsuire/hello:dev bash
 ```
 
 Enter your running container:
@@ -43,8 +43,8 @@ npm start
 ```yaml
     server:
         build:
-            context: ./server
-            dockerfile: Dockerfile-development
+            context: ./
+            dockerfile: Dockerfile-nodejs-development
         volumes:
             - ./server:/application:rw
         environment:
@@ -60,6 +60,7 @@ npm start
 ```bash
 docker-compose up
 ```
+then open a browser at [http://localhost:3001](http://localhost:3001).
 1. You can use the `--build` option to force the build process of your containers:
 ```bash
 docker-compose up --build
@@ -78,5 +79,5 @@ docker build -t fsuire/hello:latest --file server/Dockerfile-cluster --build-arg
 
 To quickly test the newly created image, you can make it run in a container.
 ```bash
-docker run -d -it -p 80:3000 -p 443:3001 --name hello fsuire/hello:latest
+docker run -d -it -p 3001:3000 --name hello fsuire/hello:latest
 ```
