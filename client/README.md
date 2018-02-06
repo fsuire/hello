@@ -1,13 +1,13 @@
-# Server - The backend app
+# Client - The frontend app
 
-The node js backend of the **fsuire/hello** application.
+The react frontend of the **fsuire/hello** application.
 
-This code is designed to eventually be run in a kubernetes [Kubernetes](https://kubernetes.io/) cluster.
+It has been bootstraped using [create-react-app](https://github.com/facebook/create-react-app). The documentation markdown file it has generated is still available here under the name [create_react_app](create_react_app.html).
 
 ## Development
 
 There are several ways to develop:
-1. Use the `server/Dockerfile-development` file to build an image then launch a container. Every change change made to a dockerfile should be committed.
+1. Use the `client/Dockerfile-development` file to build an image then launch a container. Every change change made to a dockerfile should be committed.
 1. Use docker-compose and the `./docker-compose.yml` file to launch several interdependent containers. Every change change made to a docker-compose file should be committed.
 
 ### prerequisites
@@ -17,12 +17,12 @@ Have [docker](https://docs.docker.com/engine/installation/) installed.
 
 Build the image (where `fsuire/hello:dev` is the name - and the tag - of the image):
 ```bash
-docker build -t fsuire/hello:dev --file server/Dockerfile-development server/.
+docker build -t fsuire/hello:dev --file client/Dockerfile-development client/.
 ```
 
 Make a running container (named `hello_dev`):
 ```bash
-docker run -d -it -p 3000:3000 -p 3001:3001 -v $PWD/server:/application --name hello_dev fsuire/hello:dev bash
+docker run -d -it -p 3000:3000 -p 3001:3001 -v $PWD/client:/application --name hello_dev fsuire/hello:dev bash
 ```
 
 Enter your running container:
@@ -41,16 +41,14 @@ npm start
 1. Make sure you have [docker-compose](https://docs.docker.com/compose/install/) installed
 1. The following service might be present in `docker-compose.yml`, at the root of fsuire/hello:
 ```yaml
-    server:
+    client:
         build:
-            context: ./server
+            context: ./client
             dockerfile: Dockerfile-development
         volumes:
-            - ./server:/application:rw
-        environment:
-            - HTTP_PORT=3000
+            - ./client:/application:rw
         ports:
-            - "3001:3000"
+            - "3000:3000"
         command: >
             sh -c '
               npm i && npm start
@@ -73,7 +71,7 @@ docker-compose -f some-docker-compose.yml up
 
 Build an image (do not forget to provide the desired environment with the `--build-arg` option):
 ```bash
-docker build -t fsuire/hello:latest --file server/Dockerfile-cluster --build-arg NODE_ENV=production server/.
+docker build -t fsuire/hello:latest --file client/Dockerfile-cluster --build-arg NODE_ENV=production client/.
 ```
 
 To quickly test the newly created image, you can make it run in a container.

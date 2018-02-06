@@ -2,12 +2,25 @@ version: "3"
 services:
   server:
     build:
-      context: ./server
-      dockerfile: Dockerfile-development
+      context: ./
+      dockerfile: Dockerfile-nodejs-development
     volumes:
       - ./server:/application:rw
     environment:
       - HTTP_PORT=3000
+    ports:
+      - "3001:3000"
+    command: >
+      sh -c '
+        npm i && npm start
+      '
+
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile-nodejs-development
+    volumes:
+      - ./client:/application:rw
     ports:
       - "3000:3000"
     command: >
