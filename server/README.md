@@ -50,7 +50,7 @@ npm start
         environment:
             - HTTP_PORT=3000
         ports:
-            - "3000:3000"
+            - "3001:3000"
         command: >
             sh -c '
               npm i && npm start
