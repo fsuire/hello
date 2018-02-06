@@ -43,8 +43,8 @@ npm start
 ```yaml
     client:
         build:
-            context: ./client
-            dockerfile: Dockerfile-development
+            context: ./
+            dockerfile: Dockerfile-nodejs-development
         volumes:
             - ./client:/application:rw
         ports:
@@ -58,6 +58,7 @@ npm start
 ```bash
 docker-compose up
 ```
+then open a browser at [http://localhost:3000](http://localhost:3000).
 1. You can use the `--build` option to force the build process of your containers:
 ```bash
 docker-compose up --build
