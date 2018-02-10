@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import { separator } from '/app/src/style/mixins'
 import { colors } from '/app/src/style/theme'
+
+import { getServerMessage } from '/app/src/selectors'
+import { fetchServerMessage } from '/app/src/sideEffects'
 
 
 const StyledDiv = styled.div`
@@ -44,8 +48,13 @@ const StyledDiv = styled.div`
   }
 `
 
-class App extends Component {
+export class App extends Component {
+  componentDidMount() {
+    this.props.fetchServerMessage()
+  }
+
   render() {
+    const { serverMessage } = this.props
     return (
       <StyledDiv>
         <header>
@@ -58,6 +67,9 @@ class App extends Component {
           </nav>
           <main>
           <h2>main</h2>
+          <p>
+            server message: {serverMessage}
+          </p>
           </main>        
         </div>
       </StyledDiv>
@@ -65,4 +77,13 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = (state) => ({
+  serverMessage: getServerMessage(state)
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchServerMessage: fetchServerMessage(dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+
