@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 
-import { separator } from './style/mixins'
-import { colors } from './style/theme'
+import { separator } from '/app/src/style/mixins'
+import { colors } from '/app/src/style/theme'
 
 
 const StyledDiv = styled.div`
