@@ -1,21 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+  & {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  > .page-content {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    
+    > main {
+      flex-grow: 1;
+    }
+  }
+`
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <StyledDiv>
+        <header>
+          <h1>main title</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+        <div className="page-content">
+          <nav>
+            nav
+          </nav>
+          <main>
+            main
+          </main>        
+        </div>
+      </StyledDiv>
+    )
   }
 }
 
-export default App;
+export default App
