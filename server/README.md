@@ -22,7 +22,7 @@ docker build -t fsuire/hello:dev --file ./Dockerfile-nodejs-development server/.
 
 Make a running container (named `hello_dev`):
 ```bash
-docker run -d -it -p 3001:3000 -v $PWD/server:/application --name hello_dev fsuire/hello:dev bash
+docker run -d -it -p 3001:3000 -v $PWD/server:/app --name hello_dev fsuire/hello:dev bash
 ```
 
 Enter your running container:
@@ -46,7 +46,7 @@ npm start
             context: ./
             dockerfile: Dockerfile-nodejs-development
         volumes:
-            - ./server:/application:rw
+            - ./server:/app:rw
         environment:
             - HTTP_PORT=3000
         ports:
