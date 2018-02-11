@@ -1,4 +1,4 @@
-# How to
+# TIPS
 
 ## Make an absolute import
 

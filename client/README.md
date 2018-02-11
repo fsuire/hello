@@ -2,7 +2,7 @@
 
 The react frontend of the **fsuire/hello** application.
 
-It has been bootstraped using [create-react-app](https://github.com/facebook/create-react-app). The documentation markdown file it has generated is still available here in the [appendices](create_react_app.html).
+It has been bootstraped using [create-react-app](https://github.com/facebook/create-react-app). The documentation markdown file it has generated is still available here in the [appendices](docs/create_react_app.html).
 
 ## Development
 
