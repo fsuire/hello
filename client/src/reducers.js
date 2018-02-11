@@ -1,17 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { UPDATE_SERVERMESSAGE } from './constants'
-
-const initialServerMessageState = 'default message'
-
-export function serverMessage(state = initialServerMessageState, action) {
-  switch(action.type) {
-    case UPDATE_SERVERMESSAGE:
-      return action.payload
-    default:
-      return state
-  }
-}
+import serverMessage from './ServerMessage/reducers'
 
 const reducer = combineReducers({
   serverMessage

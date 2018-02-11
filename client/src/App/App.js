@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { separator } from '/app/src/style/mixins'
 import { colors } from '/app/src/style/theme'
 
-import { getServerMessage } from '/app/src/selectors'
-import { fetchServerMessage } from '/app/src/sideEffects'
+import { getServerMessage } from '/app/src/ServerMessage/selectors'
+import { fetchServerMessage } from '/app/src/ServerMessage/sideEffects'
 
 import Header from './Header'
 
