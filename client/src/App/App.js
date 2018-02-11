@@ -8,6 +8,8 @@ import { colors } from '/app/src/style/theme'
 import { getServerMessage } from '/app/src/selectors'
 import { fetchServerMessage } from '/app/src/sideEffects'
 
+import Header from './Header'
+
 
 const StyledDiv = styled.div`
   position: absolute;
@@ -20,13 +22,6 @@ const StyledDiv = styled.div`
   flex-direction: column;
   font-family: sans-serif;
   color: ${colors.dark.neutral};
-
-  > header {
-    color: white;
-    background-color: ${colors.primary};
-    padding-left: .5em;
-    padding-right: .5em;
-  }
 
   > .page-content {
     flex-grow: 1;
@@ -57,10 +52,7 @@ export class App extends Component {
     const { serverMessage } = this.props
     return (
       <StyledDiv>
-        <header>
-          <h1>Hello</h1>
-          <h2>page title</h2>
-        </header>
+        <Header />
         <div className="page-content">
           <nav>
             <h2>nav</h2>
