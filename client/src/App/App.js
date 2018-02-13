@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import { separator } from '/app/src/style/mixins'
+import defaultStyles from '/app/src/style/mixins/defaultStyles'
 import { colors } from '/app/src/style/theme'
 
 import { getServerMessage } from '/app/src/ServerMessage/selectors'
@@ -12,16 +13,7 @@ import Header from './Header'
 
 
 const StyledDiv = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  color: ${colors.dark.neutral};
+  ${defaultStyles()}
 
   > .page-content {
     flex-grow: 1;
@@ -34,7 +26,7 @@ const StyledDiv = styled.div`
       padding-right: .5em;
       ${separator('right')}
     }
-    
+
     > main {
       flex-grow: 1;
       padding-left: .5em;
@@ -62,7 +54,7 @@ export class App extends Component {
           <p>
             server message: {serverMessage}
           </p>
-          </main>        
+          </main>
         </div>
       </StyledDiv>
     )
@@ -78,4 +70,3 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-

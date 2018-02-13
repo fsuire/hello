@@ -1,4 +1,4 @@
-import { colors } from './theme'
+import { colors } from '../theme'
 
 export const separator = (direction = 'bottom', color = colors.light.neutral) => `
   & {
