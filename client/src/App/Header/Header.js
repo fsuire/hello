@@ -11,11 +11,10 @@ const StyledHeader = styled.header`
   align-items: center;
   color: white;
   background-color: ${colors.primary};
-  padding-left: .5em;
-  padding-right: .5em;
 
   > div:first-child {
     flex-grow: 1;
+    padding-left: .5em;
   }
 `
 

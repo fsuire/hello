@@ -8,7 +8,6 @@ export const updateCurrentUser = (dispatch) => async (vendorUser, type) => {
       user = { ...user, ...vendorUser.profileObj, token: vendorUser.tokenObj }
       break;
   }
-
   const action = update(user)
   dispatch(action)
 }

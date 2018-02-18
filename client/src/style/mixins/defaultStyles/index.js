@@ -12,7 +12,7 @@ export default () => `
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  color: ${colors.dark.neutral};
+  color: ${colors.darker.neutral};
 
   &, * {
     box-sizing: border-box;

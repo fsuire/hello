@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip'
 
 import { separator } from '/app/src/style/mixins'
 import defaultStyles from '/app/src/style/mixins/defaultStyles'
-import { colors } from '/app/src/style/theme'
 
 import { getServerMessage } from '/app/src/ServerMessage/selectors'
 import { fetchServerMessage } from '/app/src/ServerMessage/sideEffects'
@@ -56,6 +56,7 @@ export class App extends Component {
           </p>
           </main>
         </div>
+        <ReactTooltip />
       </StyledDiv>
     )
   }
