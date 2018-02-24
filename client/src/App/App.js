@@ -1,32 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip'
 
 import { separator } from '/app/src/style/mixins'
-import { colors } from '/app/src/style/theme'
+import defaultStyles from '/app/src/style/mixins/defaultStyles'
 
-import { getServerMessage } from '/app/src/selectors'
-import { fetchServerMessage } from '/app/src/sideEffects'
+import { getServerMessage } from '/app/src/ServerMessage/selectors'
+import { fetchServerMessage } from '/app/src/ServerMessage/sideEffects'
+
+import Header from './Header'
 
 
 const StyledDiv = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  color: ${colors.dark.neutral};
-
-  > header {
-    color: white;
-    background-color: ${colors.primary};
-    padding-left: .5em;
-    padding-right: .5em;
-  }
+  ${defaultStyles()}
 
   > .page-content {
     flex-grow: 1;
@@ -39,7 +26,7 @@ const StyledDiv = styled.div`
       padding-right: .5em;
       ${separator('right')}
     }
-    
+
     > main {
       flex-grow: 1;
       padding-left: .5em;
@@ -57,10 +44,7 @@ export class App extends Component {
     const { serverMessage } = this.props
     return (
       <StyledDiv>
-        <header>
-          <h1>Hello</h1>
-          <h2>page title</h2>
-        </header>
+        <Header />
         <div className="page-content">
           <nav>
             <h2>nav</h2>
@@ -70,8 +54,9 @@ export class App extends Component {
           <p>
             server message: {serverMessage}
           </p>
-          </main>        
+          </main>
         </div>
+        <ReactTooltip />
       </StyledDiv>
     )
   }
@@ -86,4 +71,3 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-

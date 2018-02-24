@@ -29,4 +29,6 @@ export default function reducer(state = initialState, action) {
 }
 ```
 
+As for the main application reducer (located in `src/reducers.js`), the `combineReducers` function shipped by [react-redux](https://redux.js.org/docs/basics/Reducers.html) can be used.
+
 Reducers are often imported by their parent component's reducers and often used in composed reducers.

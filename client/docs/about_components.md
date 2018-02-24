@@ -6,10 +6,12 @@ What is called here a "connected component" refers to a component connected to t
 
 1. A component's name is in upper camel case
 1. All of a component's files are always in its own folder
-1. The main component's file name (the one exporting the main react component) is also in upper camel case
+1. A component is generally a react component, connected or not, but it can just be a set of actions, constants, reducers, selectors and/or side effects.
+1. All react components are in upper camel case, and so are named the files where they are written.
 1. A `index.js` file is present in the component's directory, re-exporting directly the main react component and/or its connected version and its sub-components.
+1. This `index.js` file is not required (but can still exist) when the component does not export react component.
 
-### Non connected component example
+## Non connected component example
 
 The component's files and folder structure must looks like this:
 ```
@@ -34,7 +36,7 @@ import ComponentName from './ComponentName'
 export default ComponentName
 ```
 
-### Connected component example
+## Connected component example
 
 The component's files and folder structure must looks like this:
 ```
@@ -81,3 +83,5 @@ export {
   ComponentName
 }
 ```
+
+##
