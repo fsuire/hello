@@ -2,7 +2,7 @@
 
 The react frontend of the **fsuire/hello** application.
 
-It has been bootstraped using [create-react-app](https://github.com/facebook/create-react-app). The documentation markdown file it has generated is still available here under the name [create_react_app](create_react_app.html).
+It has been bootstraped using [create-react-app](https://github.com/facebook/create-react-app). The documentation markdown file it has generated is still available here in the [appendices](docs/create_react_app.html).
 
 ## Development
 
@@ -22,7 +22,7 @@ docker build -t fsuire/hello:dev --file ./Dockerfile-nodejs-development client/.
 
 Make a running container (named `hello_dev`):
 ```bash
-docker run -d -it -p 3000:3000 -v $PWD/client:/application --name hello_dev fsuire/hello:dev bash
+docker run -d -it -p 3000:3000 -v $PWD/client:/app --name hello_dev fsuire/hello:dev bash
 ```
 
 Enter your running container:
@@ -46,7 +46,7 @@ npm start
             context: ./
             dockerfile: Dockerfile-nodejs-development
         volumes:
-            - ./client:/application:rw
+            - ./client:/app:rw
         ports:
             - "3000:3000"
         command: >
