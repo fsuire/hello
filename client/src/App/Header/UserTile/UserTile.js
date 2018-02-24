@@ -5,7 +5,8 @@ import styled from 'styled-components'
 
 import { ACCOUNT_TYPE } from '/app/src/CurrentUser/constants'
 import { getCurrentUser } from '/app/src/CurrentUser/selectors'
-import { updateCurrentUser } from '/app/src/CurrentUser/sideEffects'
+
+import * as facebook from './utils/facebook'
 
 import AnonymousUser from './AnonymousUser'
 import RegisteredUser from './RegisteredUser'
@@ -81,6 +82,14 @@ export class UserTile extends Component {
     )
   }
 
+  async componentDidMount() {
+    try {
+      console.log('UserTile did mount')
+      const loginStatus = await facebook.getLoginStatus()
+      console.log('loginStatus from UserTile', loginStatus)
+    } catch(e) {}
+  }
+
   makeDisplayedComponent = () => {
     if(this.state.isAnonymousUserComponentDisplayed) {
       return (<div key="anonymous-user" className="anonymous-user">
@@ -120,8 +129,4 @@ const mapStateToProps = (state) => ({
   currentUser: getCurrentUser(state)
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCurrentUser: updateCurrentUser(dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserTile)
+export default connect(mapStateToProps)(UserTile)

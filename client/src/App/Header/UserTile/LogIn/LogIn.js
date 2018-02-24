@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { colors } from '/app/src/style/theme'
 
 import Google from './Google'
+import Facebook from './Facebook'
 
 const StyledSection = styled.section`
   display: flex;
@@ -32,6 +33,7 @@ export default class LogIn extends Component {
       <StyledSection className={this.props.className}>
         <div>Sign in</div>
         <Google disabled={true} />
+        <Facebook />
         <footer>
           <button
             className="tiny-button"
