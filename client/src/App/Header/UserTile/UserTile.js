@@ -57,10 +57,7 @@ const StyledDiv = styled.div`
 export class UserTile extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      ...this.initialComponentDisplayState,
-      shouldTryGoogle: true,
-    }
+    this.state = { ...this.initialComponentDisplayState }
   }
 
   initialComponentDisplayState = {
@@ -101,15 +98,7 @@ export class UserTile extends Component {
 
     return (<div key="log-in" className="log-in">
       <LogIn
-        onLogIn={this.handleLogIn}
         onCancel={this.displayInitialComponent}
-        shouldTryGoogle={this.state.shouldTryGoogle}
-        onGoogleFailure={() => {
-          this.setState({
-            ...this.state,
-            shouldTryGoogle: false
-          })
-        }}
       />
     </div>)
   }
@@ -125,17 +114,6 @@ export class UserTile extends Component {
     ...this.state,
     ...this.initialComponentDisplayState
   })
-
-  handleLogIn = (response, accountType) => {
-    switch(accountType) {
-      case ACCOUNT_TYPE.GOOGLE:
-         // @TODO update the current player with the response
-      default:
-        console.warn(`Succes while signing in an account of the type "${accountType}, but nothing is implemented to update the current user`)
-        break;
-    }
-    // this.props.updateCurrentUser(response, accountType)
-  }
 }
 
 const mapStateToProps = (state) => ({
