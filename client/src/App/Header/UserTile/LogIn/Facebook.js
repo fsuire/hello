@@ -34,6 +34,7 @@ export class Facebook extends Component {
   handleLogIn = async () => {
     const response = await facebook.login()
     this.props.updateCurrentUser(response, ACCOUNT_TYPE.FACEBOOK)
+    this.props.onLogIn()
   }
 }
 

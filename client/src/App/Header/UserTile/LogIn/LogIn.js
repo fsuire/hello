@@ -33,11 +33,11 @@ export default class LogIn extends Component {
       <StyledSection className={this.props.className}>
         <div>Sign in</div>
         <Google disabled={true} />
-        <Facebook />
+        <Facebook onLogIn={this.props.onExitLogIn} />
         <footer>
           <button
             className="tiny-button"
-            onClick={this.props.onCancel}
+            onClick={this.props.onExitLogIn}
           >Cancel</button>
         </footer>
       </StyledSection>

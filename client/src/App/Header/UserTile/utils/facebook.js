@@ -13,6 +13,11 @@ export const login = async () => {
   }
 }
 
+export const logout = async () => {
+  const fb = await getFB()
+  return promisify(fb.logout)()
+}
+
 async function getFB() {
   if(typeof FB !== 'undefined') { // eslint-disable-line no-undef
     return Promise.resolve(FB) // eslint-disable-line no-undef

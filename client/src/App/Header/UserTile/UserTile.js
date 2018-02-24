@@ -49,8 +49,8 @@ const StyledDiv = styled.div`
       transition: width ${ANIMATION_DURATION}ms ease;
     }
 
-    > .anonymous-user { order: 0; }
-    > .registered-user { order: 1; }
+    > .registered-user { order: 0; }
+    > .anonymous-user { order: 1; }
     > .log-in { order: 2; }
   }
 `
@@ -58,16 +58,11 @@ const StyledDiv = styled.div`
 export class UserTile extends Component {
   constructor(props) {
     super(props)
-    this.state = { ...this.initialComponentDisplayState }
-  }
-
-  initialComponentDisplayState = {
-    isAnonymousUserComponentDisplayed: this.props.currentUser.type === ACCOUNT_TYPE.ANONYMOUS,
-    isRegisteredUserComponentDisplayed: this.props.currentUser.type !== ACCOUNT_TYPE.ANONYMOUS,
-    isLogInComponentDisplayed: false,
+    this.state = { ...this.getInitialComponentDisplayState() }
   }
 
   render() {
+    console.log('render !!!', this.props.currentUser, this.state)
     return (
       <StyledDiv>
       <ReactCSSTransitionGroup
@@ -84,9 +79,7 @@ export class UserTile extends Component {
 
   async componentDidMount() {
     try {
-      console.log('UserTile did mount')
       const loginStatus = await facebook.getLoginStatus()
-      console.log('loginStatus from UserTile', loginStatus)
     } catch(e) {}
   }
 
@@ -101,13 +94,16 @@ export class UserTile extends Component {
 
     if(this.state.isRegisteredUserComponentDisplayed) {
       return (<div key="registered-user" className="registered-user">
-        <RegisteredUser/>
+        <RegisteredUser
+          type={this.props.currentUser.type}
+          onLogOut={this.displayInitialComponent}
+        />
       </div>)
     }
 
     return (<div key="log-in" className="log-in">
       <LogIn
-        onCancel={this.displayInitialComponent}
+        onExitLogIn={this.displayInitialComponent}
       />
     </div>)
   }
@@ -119,9 +115,17 @@ export class UserTile extends Component {
     isLogInComponentDisplayed: true,
   })
 
-  displayInitialComponent = () => this.setState({
-    ...this.state,
-    ...this.initialComponentDisplayState
+  displayInitialComponent = () => {
+    this.setState({
+      ...this.state,
+      ...this.getInitialComponentDisplayState()
+    })
+}
+
+  getInitialComponentDisplayState = () => ({
+    isAnonymousUserComponentDisplayed: this.props.currentUser.type === ACCOUNT_TYPE.ANONYMOUS,
+    isRegisteredUserComponentDisplayed: this.props.currentUser.type !== ACCOUNT_TYPE.ANONYMOUS,
+    isLogInComponentDisplayed: false,
   })
 }
 
