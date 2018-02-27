@@ -6,7 +6,7 @@ export const getLoginStatus = async () => {
 export const login = async () => {
   const fb = await getFB()
   const loginStatus = await promisify(fb.login)({ scope: 'public_profile,email' })
-  const userInfos = await promisify(fb.api, false)('/me')
+  const userInfos = await promisify(fb.api, false)('/me?fields=email,name,first_name,last_name,picture')
   return {
     ...userInfos,
     auth: loginStatus.authResponse
