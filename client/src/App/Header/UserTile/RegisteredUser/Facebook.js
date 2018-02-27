@@ -30,7 +30,7 @@ export class Facebook extends Component {
 
   handleLogOut = async () => {
     await facebook.logout()
-    await this.props.updateCurrentUser({}, ACCOUNT_TYPE.ANONYMOUS)
+    await this.props.updateCurrentUser({ type: ACCOUNT_TYPE.ANONYMOUS })
     this.props.onLogOut()
   }
 }

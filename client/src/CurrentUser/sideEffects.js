@@ -1,16 +1,14 @@
-import { update } from './actions'
-import { ACCOUNT_TYPE } from './constants'
+import axios from 'axios'
 
-export const updateCurrentUser = (dispatch) => async (payload, type) => {
-  let user = { type }
-  switch(type) {
-    case ACCOUNT_TYPE.FACEBOOK:
-      user = { ...user, ...payload }
-      break;
-    case ACCOUNT_TYPE.ANONYMOUS:
-    default:
-      break;
-  }
+import { update } from './actions'
+// import { ACCOUNT_TYPE } from './constants'
+
+export const updateCurrentUser = (dispatch) => async (user) => {
   const action = update(user)
   dispatch(action)
+}
+
+export const logUserIn = (dispatch) => async (user) => {
+  const response = await axios.post('http://localhost:3001/oauth', { user })
+  console.log('coucou', response)
 }

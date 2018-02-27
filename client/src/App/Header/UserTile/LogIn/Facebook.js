@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { ACCOUNT_TYPE } from '/app/src/CurrentUser/constants'
 import { getCurrentUser } from '/app/src/CurrentUser/selectors'
-import { updateCurrentUser } from '/app/src/CurrentUser/sideEffects'
+import { logUserIn } from '/app/src/CurrentUser/sideEffects'
 
 import * as facebook from '../utils/facebook'
 
@@ -33,7 +33,7 @@ export class Facebook extends Component {
 
   handleLogIn = async () => {
     const response = await facebook.login()
-    this.props.updateCurrentUser(response, ACCOUNT_TYPE.FACEBOOK)
+    this.props.logUserIn({ type: ACCOUNT_TYPE.FACEBOOK, ...response })
     this.props.onLogIn()
   }
 }
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentUser: updateCurrentUser(dispatch)
+  logUserIn: logUserIn(dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Facebook)

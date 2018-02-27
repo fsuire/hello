@@ -62,7 +62,6 @@ export class UserTile extends Component {
   }
 
   render() {
-    console.log('render !!!', this.props.currentUser, this.state)
     return (
       <StyledDiv>
       <ReactCSSTransitionGroup
