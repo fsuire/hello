@@ -5,7 +5,8 @@ import styled from 'styled-components'
 
 import { ACCOUNT_TYPE } from '/app/src/CurrentUser/constants'
 import { getCurrentUser } from '/app/src/CurrentUser/selectors'
-import { updateCurrentUser } from '/app/src/CurrentUser/sideEffects'
+
+import * as facebook from './utils/facebook'
 
 import AnonymousUser from './AnonymousUser'
 import RegisteredUser from './RegisteredUser'
@@ -48,8 +49,8 @@ const StyledDiv = styled.div`
       transition: width ${ANIMATION_DURATION}ms ease;
     }
 
-    > .anonymous-user { order: 0; }
-    > .registered-user { order: 1; }
+    > .registered-user { order: 0; }
+    > .anonymous-user { order: 1; }
     > .log-in { order: 2; }
   }
 `
@@ -57,19 +58,11 @@ const StyledDiv = styled.div`
 export class UserTile extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      ...this.initialComponentDisplayState,
-      shouldTryGoogle: true,
-    }
-  }
-
-  initialComponentDisplayState = {
-    isAnonymousUserComponentDisplayed: this.props.currentUser.type === ACCOUNT_TYPE.ANONYMOUS,
-    isRegisteredUserComponentDisplayed: this.props.currentUser.type !== ACCOUNT_TYPE.ANONYMOUS,
-    isLogInComponentDisplayed: false,
+    this.state = { ...this.getInitialComponentDisplayState() }
   }
 
   render() {
+    console.log('render !!!', this.props.currentUser, this.state)
     return (
       <StyledDiv>
       <ReactCSSTransitionGroup
@@ -84,6 +77,12 @@ export class UserTile extends Component {
     )
   }
 
+  async componentDidMount() {
+    try {
+      const loginStatus = await facebook.getLoginStatus()
+    } catch(e) {}
+  }
+
   makeDisplayedComponent = () => {
     if(this.state.isAnonymousUserComponentDisplayed) {
       return (<div key="anonymous-user" className="anonymous-user">
@@ -95,21 +94,16 @@ export class UserTile extends Component {
 
     if(this.state.isRegisteredUserComponentDisplayed) {
       return (<div key="registered-user" className="registered-user">
-        <RegisteredUser/>
+        <RegisteredUser
+          type={this.props.currentUser.type}
+          onLogOut={this.displayInitialComponent}
+        />
       </div>)
     }
 
     return (<div key="log-in" className="log-in">
       <LogIn
-        onLogIn={this.handleLogIn}
-        onCancel={this.displayInitialComponent}
-        shouldTryGoogle={this.state.shouldTryGoogle}
-        onGoogleFailure={() => {
-          this.setState({
-            ...this.state,
-            shouldTryGoogle: false
-          })
-        }}
+        onExitLogIn={this.displayInitialComponent}
       />
     </div>)
   }
@@ -121,29 +115,22 @@ export class UserTile extends Component {
     isLogInComponentDisplayed: true,
   })
 
-  displayInitialComponent = () => this.setState({
-    ...this.state,
-    ...this.initialComponentDisplayState
-  })
+  displayInitialComponent = () => {
+    this.setState({
+      ...this.state,
+      ...this.getInitialComponentDisplayState()
+    })
+}
 
-  handleLogIn = (response, accountType) => {
-    switch(accountType) {
-      case ACCOUNT_TYPE.GOOGLE:
-         // @TODO update the current player with the response
-      default:
-        console.warn(`Succes while signing in an account of the type "${accountType}, but nothing is implemented to update the current user`)
-        break;
-    }
-    // this.props.updateCurrentUser(response, accountType)
-  }
+  getInitialComponentDisplayState = () => ({
+    isAnonymousUserComponentDisplayed: this.props.currentUser.type === ACCOUNT_TYPE.ANONYMOUS,
+    isRegisteredUserComponentDisplayed: this.props.currentUser.type !== ACCOUNT_TYPE.ANONYMOUS,
+    isLogInComponentDisplayed: false,
+  })
 }
 
 const mapStateToProps = (state) => ({
   currentUser: getCurrentUser(state)
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCurrentUser: updateCurrentUser(dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserTile)
+export default connect(mapStateToProps)(UserTile)
