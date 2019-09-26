@@ -1,0 +1,14 @@
+version: "3"
+services:
+  documentation:
+    build:
+      context: ./
+      dockerfile: Dockerfile-nodejs-development
+    volumes:
+      - ./:/app:rw
+    ports:
+      - "4000:4000"
+    command: >
+      sh -c '
+        gitbook serve
+      '
